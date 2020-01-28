@@ -71,3 +71,32 @@ Level 3 boss (5h)
 ## Wk12
 ## Wk13
 ## Wk14
+
+# Rendering Order
+
+## Layers
+```
+1. +-------- UI ---------+
+2. +- Fullscreen effects-+
+   +----- Particles -----+
+   +------- Items -------+
+   +------ Bullets ------+
+   +----- Character -----+
+
+3. +--Background effects-+
+   +------Background-----+
+```
+
+## Order
+```
+   Layer          Texture
+1. Background   -> 1 (Background)
+2. Character    -> 2 (Dynamic)
+3. Bullets      -> 2 (Dynamic)
+4. Items        -> 2 (Dynamic)
+5. Particles    -> 2 (Dynamic)
+6. BG Effect    -> 1 (Background)
+7. Merge        -> 0 (Output)
+8. FS Effect    -> 0 (Output)
+9. UI           -> 0 (Output)
+```
