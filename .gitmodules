@@ -1,0 +1,3 @@
+[submodule "glare"]
+	path = glare
+	url = https://github.com/krovma/glare
