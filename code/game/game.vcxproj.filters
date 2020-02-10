@@ -10,6 +10,9 @@
     <Filter Include="data">
       <UniqueIdentifier>{6bcd6d50-8554-4af3-b2b8-5309ff0ffa27}</UniqueIdentifier>
     </Filter>
+    <Filter Include="editor">
+      <UniqueIdentifier>{fc44ac0f-caf8-4196-b1c8-1abba58b7938}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="framework\main_windows.cpp">
@@ -21,6 +24,12 @@
     <ClCompile Include="gameplay\game.cpp">
       <Filter>gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="editor\bullet_proto_editor.cpp">
+      <Filter>editor</Filter>
+    </ClCompile>
+    <ClCompile Include="gameplay\bullet_proto.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework\app.h">
@@ -30,6 +39,12 @@
       <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="gameplay\game.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="editor\editor.h">
+      <Filter>editor</Filter>
+    </ClInclude>
+    <ClInclude Include="gameplay\bullet_proto.h">
       <Filter>gameplay</Filter>
     </ClInclude>
   </ItemGroup>

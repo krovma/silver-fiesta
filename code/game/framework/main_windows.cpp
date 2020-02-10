@@ -4,16 +4,18 @@
 #include "glare/core/window.h"
 #include "glare/render/vertex.h"
 #include "glare/render/shader.h"
-#include "framework/app.h"
 #include "glare/dev/dev_ui.h"
+#include "glare/core/rng.h"
+#include "framework/app.h"
 #include "imgui/imgui.h"
 using namespace glare;
-
 
 LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 static LRESULT(*_imgui_proc) (HWND, UINT, WPARAM, LPARAM) = ImGui_ImplWin32_WndProcHandler;
 
 app* the_app = nullptr;
+rng g_rng;
+
 bool game_windows_message_handling_procedure(void* hwnd, unsigned long int message_code, unsigned long long int wparam, long long int lparam)
 {
 	const ImGuiIO *imgui_io = nullptr;

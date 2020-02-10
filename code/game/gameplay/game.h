@@ -9,6 +9,7 @@ namespace glare
 };
 
 class app;
+class bullet_proto_editor;
 class game
 {
 public:
@@ -23,4 +24,6 @@ public:
 public:
 	app*	m_app = nullptr;
 	shader* m_unlit_shader = nullptr;
+
+	bullet_proto_editor*	m_proto_editor = nullptr;
 };
