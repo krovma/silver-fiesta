@@ -16,7 +16,7 @@ static LRESULT(*_imgui_proc) (HWND, UINT, WPARAM, LPARAM) = ImGui_ImplWin32_WndP
 app* the_app = nullptr;
 rng g_rng;
 
-bool game_windows_message_handling_procedure(void* hwnd, unsigned long int message_code, unsigned long long int wparam, long long int lparam)
+bool game_windows_message_handling_procedure(void* hwnd, UINT message_code, WPARAM wparam, LPARAM lparam)
 {
 	const ImGuiIO *imgui_io = nullptr;
 	if(dev_ui::m_run) {

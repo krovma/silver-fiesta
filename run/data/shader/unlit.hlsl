@@ -13,7 +13,7 @@ cbuffer frame_constants: register(b1)
 cbuffer camera_constants : register(b2)
 {
 	float4x4 PROJECTION;
-	float4x4 VIEW;
+	//float4x4 VIEW;
 };
 
 cbuffer model_constants : register(b3)
@@ -44,15 +44,15 @@ VertToPixel Vert(VertInput input)
 {
 	VertToPixel result = (VertToPixel)0;
 	
-	//float4 localPos = float4(input.position, 1.0f);
+	float4 localPos = float4(input.position, 1.0f);
 	//float4 worldPos = mul(MODEL, localPos);
-	//float4 viewPos = mul(VIEW, worldPos);
-	//float4 clipPos = mul(PROJECTION, viewPos);
+	float4 viewPos = localPos;//mul(VIEW, worldPos);
+	float4 clipPos = mul(PROJECTION, viewPos);
 
 	//result.position = clipPos;
 	//result.color = input.color;
 	//result.uv = input.uv;
-    result.position = float4(input.position, 1);
+    result.position = clipPos;
     result.color = input.color;
     result.uv = input.uv;
 	return result;
@@ -60,8 +60,8 @@ VertToPixel Vert(VertInput input)
 
 float4 Pixel(VertToPixel input) : SV_TARGET0
 {
-	//float4 texColor = tAlbedo.Sample(sAlbedo, input.uv);
-	//float4 finalColor = texColor * input.color;
-	//return finalColor;
-    return input.color;
+	float4 texColor = tAlbedo.Sample(sAlbedo, input.uv);
+	float4 finalColor = texColor * input.color;
+	return finalColor;
+    //return input.color;
 }

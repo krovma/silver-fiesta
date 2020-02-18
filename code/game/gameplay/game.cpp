@@ -3,11 +3,16 @@
 #include "glare/render/renderer.h"
 #include "glare/render/shader.h"
 #include "glare/core/color.h"
+#include "glare/render/mesh_builder.h"
 #include "glare/render/vertex.h"
+#include "glare/render/sprite.h"
 #include "editor/editor.h"
 #include "imgui/imgui.h"
+#include "gameplay/bullet.h"
 
-static renderer* g_renderer = nullptr;
+renderer* g_renderer = nullptr;
+static texture2d* g_tex = nullptr;
+static texture2d* g_bgtex = nullptr;
 
 static void _set_imgui_style()
 {
@@ -72,23 +77,35 @@ void game::start()
 	m_unlit_shader = shader::load_from_xml("data/shader/unlit.shader", m_app->m_renderer);
 	g_renderer->m_buffer_vbo->set_buffer_layout(buffer_layout::acquire_layout_of<vertex_pcu>());
 	m_unlit_shader->create_dx_vbo_layout(g_renderer->m_buffer_vbo->get_buffer_layout());
+	g_tex = g_renderer->load_texture2d_from_file("test_sprite", "data/texture/d_test4x4.png");
+	g_bgtex = g_renderer->load_texture2d_from_file("bg_sprite", "data/texture/d_stage06h.png");
+	m_test_sprite = new sprite_sheet(g_tex, {4,4});
 
-	m_proto_editor = new bullet_proto_editor();
+	m_proto_editor = new bullet_proto_editor(this);
 	constexpr const char* filename = "data/game/bullet_TestBullet0.xml";
 	m_proto_editor->start(filename);
+
+	m_test_mesh = new mesh(buffer_layout::acquire_layout_of<vertex_pcu>());
+	const aabb2 zone{{-375, -660}, {375, 180}};
+	mesh_builder::add_aabb2(*m_test_mesh, zone);
+	m_root = new  empty_entity();
 }
 
 void game::begin_frame()
 {
 	//m_proto_editor->begin_frame();
+	if (m_test_bullet) {
+		m_test_bullet->begin_frame();
+	}
 }
 
-static bool my_tool_active;
-static rgba my_color;
-
-void game::update()
+void game::update(float32 delta_sec)
 {
 	m_proto_editor->update();
+	m_test_mesh->update_gpu_mesh(g_renderer);
+	if (m_test_bullet) {
+		m_test_bullet->update(delta_sec);
+	}
 	// ImGui::Begin("My First Tool", &my_tool_active, ImGuiWindowFlags_MenuBar);
 	// if (ImGui::BeginMenuBar()) {
 	// 	if (ImGui::BeginMenu("File")) {
@@ -120,23 +137,50 @@ void game::update()
 
 void game::render() const
 {
-	static std::vector<vertex_pcu> verts =
-	{
-		{{0,0,0}, color::RED, {0,0}},
-		{{1,0,0}, color::GREEN, {0,0}},
-		{{0,1,0}, color::BLUE, {0,0}},
-	};
+	static vec2 fraction = vec2{750.f, 840.f} / vec2{1200.f, 900.f};
+	
+	g_renderer->set_ortho({-375, -660}, {375, 180}, -1, 1);
+	//const sprite s = m_test_sprite->get_sprite({3,2});
+	g_renderer->set_viewport(fraction * g_renderer->m_resolution, {30, 30});
+	
 	g_renderer->bind_shader(m_unlit_shader);
-	g_renderer->m_buffer_vbo->buffer(verts.data(), verts.size());
-	g_renderer->bind_vbo(g_renderer->m_buffer_vbo);
-	g_renderer->draw(3, 0);
+	g_renderer->bind_constant_buffer(CONSTANT_CAMERA_BUFFER, g_renderer->m_buffer_project);
+	g_renderer->bind_texture(g_bgtex, TEXTURE_SLOT_DIFFUSE, MIN_LINEAR_MAG_LINEAR);
+	g_renderer->draw_mesh(m_test_mesh);
+	//g_renderer->m_buffer_vbo->buffer(verts.data(), verts.size());
+	//g_renderer->bind_vbo(g_renderer->m_buffer_vbo);
+	//g_renderer->draw(verts.size(), 0);
+
+	if (m_test_bullet) {
+		g_renderer->bind_texture(g_tex);
+		mesh tmp_mesh(buffer_layout::acquire_layout_of<vertex_pcu>());
+		m_test_bullet->render(tmp_mesh);
+		tmp_mesh.update_gpu_mesh(g_renderer);
+		g_renderer->draw_mesh(&tmp_mesh);
+	}
 }
 
 void game::end_frame()
 {
+	if (m_test_bullet) {
+		m_test_bullet->end_frame();
+	}
+	if (m_test_bullet && m_test_bullet->is_garbage()) {
+		delete m_test_bullet;
+		m_test_bullet = nullptr;
+	}
 }
 
 void game::stop()
 {
+	delete m_test_bullet;
+	delete m_root;
 	m_proto_editor->end();
+}
+
+void game::create_test_bullet(bullet_proto& proto)
+{
+	delete m_test_bullet;
+	m_test_bullet = new bullet(m_root, proto);
+	m_test_bullet->start();
 }

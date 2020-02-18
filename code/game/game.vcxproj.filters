@@ -30,6 +30,12 @@
     <ClCompile Include="gameplay\bullet_proto.cpp">
       <Filter>gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="gameplay\bullet.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="gameplay\entity.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework\app.h">
@@ -45,6 +51,12 @@
       <Filter>editor</Filter>
     </ClInclude>
     <ClInclude Include="gameplay\bullet_proto.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="gameplay\bullet.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="gameplay\entity.h">
       <Filter>gameplay</Filter>
     </ClInclude>
   </ItemGroup>

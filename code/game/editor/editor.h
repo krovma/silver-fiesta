@@ -1,12 +1,12 @@
 #pragma once
 #include "glare/core/common.h"
 #include "glare/data/xml_utils.h"
-
 #include <vector>
 #include "glare/math/vector.h"
-using namespace glare;
-constexpr size_t NAME_BUFFER_SIZE = 64;
+#include "gameplay/bullet_proto.h"
 
+using namespace glare;
+class game;
 class editor
 {
 public:
@@ -24,28 +24,29 @@ class editor_frame
 public:
 	editor_frame() = default;
 	virtual ~editor_frame() = default;
-	virtual void create(const xml::node& node)
+	virtual void create(const xml::node& node, void* object)
 	{
 		m_xml_node = node;
+		m_object = object;
 	}
 	virtual void update() = 0;
 	virtual void destroy() = 0;
+	virtual void update_xml_node() = 0;
 public:
 	xml::node	m_xml_node;
+	void*		m_object=nullptr;
 	bool		m_active = true;
 };
 
 class bullet_proto_start_frame : public editor_frame
 {
 public:
-	void create(const xml::node& node) override;
+	void create(const xml::node& node, void* proto) override;
 	void update() override;
 	void destroy() override;
+	void update_xml_node() override;
 
-	char m_next_stage[NAME_BUFFER_SIZE] {"NONE"};
-	vec2	m_position;
-	float32 m_rotation;
-	bool	m_local_move = false;
+	bullet_proto* m_proto = nullptr;
 };
 
 class bullet_proto_custom_frame : public editor_frame
@@ -53,39 +54,33 @@ class bullet_proto_custom_frame : public editor_frame
 public:
 	static inline constexpr size_t NUM_MOVEMENTS = 1;
 public:
-	void create(const xml::node& node) override;
+	void create(const xml::node& node, void* proto) override;
 	void update() override;
 	void destroy() override;
+	void update_xml_node() override;
 
-public:
-	char	m_stage_id[NAME_BUFFER_SIZE] {""};
-	char	m_tmp_buf[NAME_BUFFER_SIZE] {""};
-	bool	m_tmp_popup;
-	// Movements list
-	// 1. Go self-forward
-	float32		m_1_forward_speed = 1.f;
-	float32		m_1_forward_time  = 1.f;
+	char	m_rename_buf[GAME_MAX_ID_LENGTH] {""};
+	bool	m_rename_popup;
 
-	// transit
-	bool	m_use[NUM_MOVEMENTS];
-	char	m_next_stage[NAME_BUFFER_SIZE] {"NONE"};
+	bullet_proto::custom* m_custom = nullptr;
 };
 
 class bullet_proto_end_frame : public editor_frame
 {
 public:
-	void create(const xml::node& node) override;
+	void create(const xml::node& node, void* proto) override;
 	void update() override;
 	void destroy() override;
+	void update_xml_node() override;
 
-	bool m_effect = true;
+	bullet_proto*	m_proto=nullptr;
 };
 
 
 class bullet_proto_editor : public editor
 {
 public:
-	bullet_proto_editor();
+	bullet_proto_editor(game* game);
 	~bullet_proto_editor() override;
 	void start(const char* xml_path) override;
 	void update() override;
@@ -93,14 +88,16 @@ public:
 
 	void add_new_stage();
 	//void remove_stage();
+	bool save_xml();
 public:
+	game*						m_game = nullptr;
 	bullet_proto_start_frame*	m_start_frame = nullptr;
 	bullet_proto_end_frame*		m_end_frame = nullptr;
 
 	xml::node	m_custom_frame_node;
+	//xml::node   m_proto_root;
 	std::vector<bullet_proto_custom_frame*>	m_custom_frames;
 	string	m_xml_path;
-	char	m_bullet_id[NAME_BUFFER_SIZE] {""};
-	
+	bullet_proto	m_tmp_proto;
 };
 
