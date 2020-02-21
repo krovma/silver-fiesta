@@ -13,14 +13,17 @@
 * () Enemies can shoot
 * () Enemies can die
 * () Enemies can leave after a certain time
+
 **Game states**
 * () Switching in Main menu, game and editor
 * () Game stops if the marked last enemy is killed
 * () Game stops if player has no life
 * () Game stops if player request to leave
+
 **Tech**
 * () Draw an static image as the background
 * () Basic sfx
+
 # Rendering Order
 
 ## Layers
