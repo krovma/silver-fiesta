@@ -16,6 +16,7 @@
 
 **Game states**
 * () Switching in Main menu, game and editor
+   ** game editor done
 * () Game stops if the marked last enemy is killed
 * () Game stops if player has no life
 * () Game stops if player request to leave
