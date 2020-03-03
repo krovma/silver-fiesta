@@ -5,12 +5,12 @@
 
 ## Wk5 Gameplay lvl.1
 **Entites**
-* () Player can move and swap to slow mode
-* () Player can shoot and use bomb
+* (x) Player can move and swap to slow mode
+* (x) Player can shoot and use bomb
 * () Player can die
 * () Player can respawn
-* () Enemies can spawn
-* () Enemies can shoot
+* (x) Enemies can spawn
+* (x) Enemies can shoot
 * () Enemies can die
 * () Enemies can leave after a certain time
 
