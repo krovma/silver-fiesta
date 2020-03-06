@@ -5,25 +5,25 @@
 
 ## Wk5 Gameplay lvl.1
 **Entites**
-* (x) Player can move and swap to slow mode
-* (x) Player can shoot
-* () Player can die
-* () Player can respawn
-* (x) Enemies can spawn
-* (x) Enemies can shoot
-* (x) Enemies can die
-* (x) Enemies can leave after a certain time
+* (x) Player can move and swap to slow mode (2h)
+* (x) Player can shoot (3h)
+* () Player can die (0.5h)
+* () Player can respawn (1h)
+* (x) Enemies can spawn (1h)
+* (x) Enemies can shoot (2h)
+* (x) Enemies can die   (0.5h)
+* (x) Enemies can leave after a certain time (1h)
 
 **Game states**
-* (x) Switching in Main menu, game and editor
+* (x) Switching in Main menu, game and editor (1h)
    ** game editor done
-* () Game stops if the marked last enemy is killed
-* () Game stops if player has no life
-* () Game stops if player request to leave
+* () Game stops if the marked last enemy is killed (1h)
+* () Game stops if player has no life (0.5h)
+* (x) Game stops if player request to leave (0.1h)
 
 **Tech**
-* (x) Draw an static image as the background
-* () Basic sfx
+* (x) Draw an static image as the background (0.2h)
+* () Basic sfx  (3h)
 
 # Rendering Order
 
