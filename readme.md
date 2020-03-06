@@ -13,7 +13,6 @@
 * (x) Enemies can shoot (2h)
 * (x) Enemies can die   (0.5h)
 * (x) Enemies can leave after a certain time (1h)
-
 **Game states**
 * (x) Switching in Main menu, game and editor (1h)
    ** game editor done
@@ -24,6 +23,14 @@
 **Tech**
 * (x) Draw an static image as the background (0.2h)
 * () Basic sfx  (3h)
+
+## Wk7-8 Map and Boss
+**Map**
+* () (tech base)add a callback event with args to countdown class
+* enemy wave
+* idle
+* last enemy mark(boss mark)
+**  Game stops if the marked last enemy is killed
 
 # Rendering Order
 
