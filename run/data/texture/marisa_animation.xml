@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<sprite_anim sheet="marisa">
+	<!-- mode is in {loop, once, pingpong} -->
+	<clip id="idle" mode="loop" start_paused="false">
+		<!-- time in seconds-->
+		<!-- event is a no args event name-->
+		<frame sprite_index="0" time="0.125" event="anim-marisa-begin"/>
+		<frame sprite_index="1" time="0.125"/>
+		<frame sprite_index="2" time="0.125"/>
+		<frame sprite_index="3" time="0.125"/>
+		<frame sprite_index="4" time="0.125"/>
+		<frame sprite_index="5" time="0.125"/>
+		<frame sprite_index="6" time="0.125"/>
+		<frame sprite_index="7" time="0.125"/>
+	</clip>
+	<clip id="move-left" mode="once" start_paused="false">
+		<frame sprite_index="8" time="0.125"/>
+		<frame sprite_index="9" time="0.125"/>
+		<frame sprite_index="10" time="0.125"/>
+		<frame sprite_index="11" time="0.125"/>
+		<frame sprite_index="12" time="0.125"/>
+		<frame sprite_index="13" time="0.125"/>
+		<frame sprite_index="14" time="0.125"/>
+		<frame sprite_index="15" time="0.125"/>
+	</clip>
+	<clip id="move-right" mode="once" start_paused="false">
+		<frame sprite_index="16" time="0.125"/>
+		<frame sprite_index="17" time="0.125"/>
+		<frame sprite_index="18" time="0.125"/>
+		<frame sprite_index="19" time="0.125"/>
+		<frame sprite_index="20" time="0.125"/>
+		<frame sprite_index="21" time="0.125"/>
+		<frame sprite_index="22" time="0.125"/>
+		<frame sprite_index="23" time="0.125"/>
+	</clip>
+</sprite_anim>

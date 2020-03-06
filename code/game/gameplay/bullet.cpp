@@ -1,7 +1,7 @@
 #include "gameplay/bullet.h"
 #include "glare/render/mesh_builder.h"
 #include "glare/render/renderer.h"
-
+#include "gameplay/collider.h"
 //extern renderer* g_renderer;
 
 bullet::bullet(const entity* spawner, const bullet_proto& proto)
@@ -9,9 +9,10 @@ bullet::bullet(const entity* spawner, const bullet_proto& proto)
 	, m_proto(&proto)
 	, m_spawner(spawner)
 {
-	texture2d* tx = g_renderer->load_texture2d_from_file("test_sprite", "data/texture/d_test4x4.png");
-	m_sprites = new sprite_sheet(tx, {4,4});
-	m_anim = m_sprites->get_sprite_copy(8);
+	auto sprites = sprite_sheet::get_sprite_sheet("test4x4");
+	m_anim = sprites->create_sprite_copy(8);
+
+	m_collider = new disk_collider(this, 10.f);
 }
 
 void bullet::start()

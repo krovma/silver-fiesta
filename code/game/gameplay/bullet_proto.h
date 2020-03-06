@@ -3,6 +3,7 @@
 #include "framework/common.h"
 #include <unordered_map>
 #include "glare/math/vector.h"
+#include "glare/data/xml_utils.h"
 
 constexpr size_t GAME_MAX_ID_LENGTH = 64;
 
@@ -45,7 +46,13 @@ public:
 	{
 		m_custom_stages.reserve(64);
 	}
+	bullet_proto(const xml::node& xml_node);
+	bullet_proto(const char* xml_path);
+	void init_proto_from_xml_node(const xml::node& xml_node);
 	const custom* get_custom_stage(const string& id) const;
+
+	static void load_bullet_proto(const char* xml_path);
+	static bullet_proto* get_bullet_proto(const string& id);
 public:
 	char m_proto_id[GAME_MAX_ID_LENGTH] {""};
 

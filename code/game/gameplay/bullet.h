@@ -4,13 +4,15 @@
 #include "gameplay/bullet_proto.h"
 #include "glare/render/sprite.h"
 
+class collider;
+
 class bullet : public entity
 {
 public:
 	~bullet() override
 	{
 		delete m_anim;
-		delete m_sprites;
+		delete m_collider;
 	}
 	bullet(const entity* spawner, const bullet_proto& proto);
 
@@ -30,5 +32,5 @@ public:
 	const bullet_proto::custom*	m_current_custom_stage = nullptr;
 	const entity*	m_spawner = nullptr;
 	float32 m_current_stage_time = 0.f;
-	sprite_sheet* m_sprites;
+	collider* m_collider = nullptr;
 };

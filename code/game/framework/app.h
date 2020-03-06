@@ -15,8 +15,11 @@ public:
 	void start();
 	void run_frame();
 	void stop();
-	
+
 	void event_close();
+	void event_keyboard(bool keydown, byte keycode) const;
+
+	void _load_resources() const;
 public:
 	bool m_run = true;
 	window* m_window = nullptr;

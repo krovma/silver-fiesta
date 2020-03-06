@@ -1,7 +1,9 @@
 #pragma once
 #include "framework/common.h"
+#include "gameplay/collider.h"
 #include "glare/math/vector.h"
 #include <vector>
+#include "glare/math/utilities.h"
 
 namespace glare {
 class mesh;
@@ -47,4 +49,34 @@ public:
 	void render(mesh& collection) const override { UNUSED(collection); }
 	void end_frame() override { }
 	void stop() override { }
+};
+
+struct health
+{
+	health(int hp = 1, int max_hp = 1)
+		: m_hp(hp), m_max_hp(max_hp)
+	{}
+	int m_hp;
+	int m_max_hp;
+
+	NODISCARD bool is_dead() const { return m_hp <= 0; }
+	void damage(int amount)
+	{
+		m_hp -= amount;
+		m_hp = clamp(m_hp, 0, m_max_hp);
+	}
+	void heal(int amount)
+	{
+		m_hp += amount;
+		m_hp = clamp(m_hp, 0, m_max_hp);
+	}
+	void reset_max_hp(int new_max_hp)
+	{
+		m_max_hp = new_max_hp;
+		m_hp = clamp(m_hp, 0, m_max_hp);
+	}
+	void set_hp(int hp)
+	{
+		m_hp = hp;
+	}
 };

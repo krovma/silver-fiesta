@@ -6,7 +6,7 @@
 #include "gameplay/bullet_proto.h"
 
 using namespace glare;
-class game;
+class game_editor;
 class editor
 {
 public:
@@ -80,7 +80,7 @@ public:
 class bullet_proto_editor : public editor
 {
 public:
-	bullet_proto_editor(game* game);
+	bullet_proto_editor(game_editor* game);
 	~bullet_proto_editor() override;
 	void start(const char* xml_path) override;
 	void update() override;
@@ -90,7 +90,7 @@ public:
 	//void remove_stage();
 	bool save_xml();
 public:
-	game*						m_game = nullptr;
+	game_editor*						m_game = nullptr;
 	bullet_proto_start_frame*	m_start_frame = nullptr;
 	bullet_proto_end_frame*		m_end_frame = nullptr;
 

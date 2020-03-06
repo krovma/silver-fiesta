@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<resources>
+    <texture> 
+        <!--
+            load id=TEXTURE_ID src=TEXTURE_FILE_PATH(image)
+        -->
+        <load id="dxtest"       src="data/texture/d_dxtest.png" />
+        <load id="marisa_tmp"   src="data/texture/d_marisa_tmp.png" />
+        <load id="bg_tmp"       src="data/texture/d_stage06h.png" />
+        <load id="dxtest"       src="data/texture/d_dxtest.png" />
+        <load id="test44"       src="data/texture/d_test4x4.png" />
+    </texture>
+
+    <sprite>
+        <!--
+            load id=SPRITE_SHEET_ID layout=IVEC2 or src=SPRITE_PATH
+            if layout is found, src is not parsed and texture=TEXTURE_ID should exist
+        -->
+        <!--load id="" src="" /-->
+        <load id="test4x4" layout="4,4" texture="test44"/>
+        <load id="marisa" layout="8,3" texture="marisa_tmp"/>
+        <load id="sheet_marisa" src="data/texture/sprite_marisa.xml" />
+    </sprite>
+    <anim>
+        <load id="marisa_test" src="data/texture/marisa_animation.xml" />
+    </anim>
+</resources>

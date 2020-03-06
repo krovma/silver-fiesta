@@ -3,7 +3,12 @@
 #include "glare/core/window.h"
 #include "glare/render/renderer.h"
 #include "glare/core/color.h"
+#include "glare/core/input.h"
 #include "glare/dev/dev_ui.h"
+#include "glare/data/xml_utils.h"
+#include "glare/render/sprite.h"
+
+renderer* g_renderer = nullptr;
 
 app::app()
 {
@@ -16,6 +21,9 @@ void app::start()
 	m_renderer = new renderer(m_window);
 	m_renderer->start();
 	dev_ui::start(m_window, m_renderer);
+
+	_load_resources();
+	
 	m_game = new game(this);
 	m_game->start();
 }
@@ -25,6 +33,7 @@ void app::run_frame()
 	m_window->begin_frame();
 	m_renderer->begin_frame();
 	m_renderer->clear_render_target(color::BLACK);
+	m_game->begin_frame();
 	dev_ui::begin_frame();
 	m_game->update(0.016f);
 	dev_ui::update(0.016f);
@@ -38,6 +47,8 @@ void app::run_frame()
 
 void app::stop()
 {
+	sprite_sheet::clear_cache();
+	
 	m_game->stop();
 	delete m_game;
 	m_renderer->stop();
@@ -49,4 +60,49 @@ void app::stop()
 void app::event_close()
 {
 	m_run = false;
+}
+
+void app::event_keyboard(bool keydown, byte keycode) const
+{
+	// some thing like slow mode ...
+	keyboard::set_key_state(keycode, keydown);
+	m_game->on_keyboard(keydown, keycode);
+}
+
+void app::_load_resources() const
+{
+	xml::document* doc = xml::load_file("data/resources.xml");
+	const xml::node root = doc->child("resources");
+
+	// load texture
+	const xml::node texture = root.child("texture");
+	for (auto& each: texture.children("load")) {
+		const string id = xml::get_attr(each, "id", "default");
+		const string src = xml::get_attr(each, "src", "");
+		m_renderer->load_texture2d_from_file(id, src.c_str());
+	}
+
+	// load sprites
+	const xml::node sprite = root.child("sprite");
+	for (auto& each: sprite.children("load")) {
+		const string id = xml::get_attr(each, "id", "default");
+		const ivec2 layout = xml::get_attr(each, "layout", ivec2::ZERO);
+		if (layout.x > 0 && layout.y > 0) {
+			const string texture_id = xml::get_attr(each, "texture", "default");
+			texture2d* const ptexture = m_renderer->get_texture2d_by_id(texture_id);
+			sprite_sheet::load_sprite_sheet_from_texture(id, layout, ptexture);
+		} else {
+			const string src = xml::get_attr(each, "src", "");
+			sprite_sheet::load_sprite_sheet_from_xml(id, m_renderer, src.c_str());
+		}
+	}
+	// load animations
+	const xml::node anim = root.child("anim");
+	for (auto& each: anim.children("load")) {
+		const string id = xml::get_attr(each, "id", "no-anim-id");
+		const string src = xml::get_attr(each, "src", "");
+		sprite_anim::load_sprite_anim_from_xml(id, src.c_str());
+	}
+	// load audio
+	
 }

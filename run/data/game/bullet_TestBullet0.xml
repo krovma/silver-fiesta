@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<bullet_proto id="test">
+<bullet_proto id="enemy-test">
 	<start local_move="false" position="0,0" rotation="0" next="move1" />
 	<custom>
 		<frame id="move1" next="move_2">
 			<movements>
-				<move_forward speed="500" time="1" />
+				<move_forward speed="250" time="2" />
 			</movements>
 		</frame>
 		<frame id="move_2" next="move_3">
@@ -12,9 +12,10 @@
 				<move_tospawner speed="250" time="0.5" />
 			</movements>
 		</frame>
-		<frame id="move_3" next="move_2">
+		<frame id="move_3" next="end">
 			<movements>
-				<move_forward speed="50" time="10" />
+				<move_forward speed="100" time="5" />
+				<move_tospawner speed="300" time="-1" />
 			</movements>
 		</frame>
 	</custom>

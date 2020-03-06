@@ -1,19 +1,10 @@
 #pragma once
-#include "glare/core/common.h"
-#include "framework/common.h"
-#include "glare/render/mesh.h"
-#include "gameplay/entity.h"
+#include "framework/app.h"
 
-class bullet_proto;
+class game_mode;
+class game_editor;
+class game_play;
 
-namespace glare
-{
-	class shader;
-	class sprite_sheet;
-};
-
-class app;
-class bullet_proto_editor;
 class game
 {
 public:
@@ -26,16 +17,15 @@ public:
 	void end_frame();
 	void stop();
 
-public:
-	void create_test_bullet(bullet_proto& proto);
-public:
-	app*	m_app = nullptr;
-	shader* m_unlit_shader = nullptr;
-	sprite_sheet* m_test_sprite = nullptr;
-	mesh*	m_test_mesh = nullptr;
+	void on_keyboard(bool keydown, byte keycode);
 
-	entity* m_test_bullet = nullptr;
-	entity* m_root = nullptr;
+public:
+	app*			m_app = nullptr;
+
+	game_mode*		m_current_game_mode;
+	//game_editor*	m_game_editor = nullptr;
+	//game_play*		m_game_playing = nullptr;
 	
-	bullet_proto_editor*	m_proto_editor = nullptr;
+	bool			m_transition_to_editor_requested = false;
+	bool			m_transition_to_playing_requested = false;
 };

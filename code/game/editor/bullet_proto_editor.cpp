@@ -3,12 +3,12 @@
 #include <filesystem>
 #include <fstream>
 #include "glare/core/assert.h"
-#include "glare/core/string_utilities.h"
+#include "glare/core/string_utils.h"
 #include "glare/dev/dev_ui.h"
 #include "glare/core/rng.h"
 #include "glare/core/log.h"
 #include "glare/render/renderer.h"
-#include "gameplay/game.h"
+#include "gameplay/game_editor.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 void bullet_proto_start_frame::create(const xml::node& node, void* proto)
@@ -51,7 +51,7 @@ void bullet_proto_start_frame::destroy()
 void bullet_proto_start_frame::update_xml_node()
 {
 	m_xml_node.attribute("next").set_value(m_proto->m_start_next_stage);
-	m_xml_node.attribute("position").set_value(m_proto->m_start_position.repl().c_str());
+	m_xml_node.attribute("position").set_value(m_proto->m_start_position.repr().c_str());
 	m_xml_node.attribute("rotation").set_value(m_proto->m_start_rotation);
 	m_xml_node.attribute("local").set_value(m_proto->m_start_local_move);
 }
@@ -181,7 +181,7 @@ void bullet_proto_end_frame::update_xml_node()
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
-bullet_proto_editor::bullet_proto_editor(game* game)
+bullet_proto_editor::bullet_proto_editor(game_editor* game)
 	:m_game(game)
 {
 }

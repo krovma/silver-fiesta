@@ -194,8 +194,13 @@
     <ClCompile Include="framework\main_windows.cpp" />
     <ClCompile Include="gameplay\bullet.cpp" />
     <ClCompile Include="gameplay\bullet_proto.cpp" />
+    <ClCompile Include="gameplay\collider.cpp" />
+    <ClCompile Include="gameplay\enemy.cpp" />
     <ClCompile Include="gameplay\entity.cpp" />
     <ClCompile Include="gameplay\game.cpp" />
+    <ClCompile Include="gameplay\game_editor.cpp" />
+    <ClCompile Include="gameplay\game_play.cpp" />
+    <ClCompile Include="gameplay\player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="editor\editor.h" />
@@ -203,8 +208,15 @@
     <ClInclude Include="framework\common.h" />
     <ClInclude Include="gameplay\bullet.h" />
     <ClInclude Include="gameplay\bullet_proto.h" />
+    <ClInclude Include="gameplay\collider.h" />
+    <ClInclude Include="gameplay\enemy.h" />
+    <ClInclude Include="gameplay\enemy_proto.h" />
     <ClInclude Include="gameplay\entity.h" />
     <ClInclude Include="gameplay\game.h" />
+    <ClInclude Include="gameplay\game_editor.h" />
+    <ClInclude Include="gameplay\game_mode.h" />
+    <ClInclude Include="gameplay\game_play.h" />
+    <ClInclude Include="gameplay\player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

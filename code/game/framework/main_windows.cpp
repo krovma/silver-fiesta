@@ -26,7 +26,16 @@ bool game_windows_message_handling_procedure(void* hwnd, UINT message_code, WPAR
 	if (message_code == WM_CLOSE) {
 		the_app->event_close();
 		return true;
-	} else if (message_code == WM_CHAR) {
+	}
+	if (message_code == WM_KEYDOWN) {
+		the_app->event_keyboard(true, wparam);
+		return true;
+	}
+	if (message_code == WM_KEYUP) {
+		the_app->event_keyboard(false, wparam);
+		return true;
+	}
+	if (message_code == WM_CHAR) {
 		if (imgui_io && imgui_io->WantCaptureKeyboard) {
 			return false;
 		}
@@ -48,7 +57,7 @@ int WINAPI WinMain(_In_ HINSTANCE application_instance, _In_opt_ HINSTANCE prev_
 	while (the_app->m_run)
 	{
 		the_app->run_frame();
-		Sleep(16);
+		Sleep(8);
 	}
 	the_app->stop();
 	delete the_app;
