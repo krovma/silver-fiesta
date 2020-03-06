@@ -7,8 +7,8 @@
 **Entites**
 * (x) Player can move and swap to slow mode (2h)
 * (x) Player can shoot (3h)
-* () Player can die (0.5h)
-* () Player can respawn (1h)
+* (x) Player can die (0.5h)
+* (x) Player can respawn (1h)
 * (x) Enemies can spawn (1h)
 * (x) Enemies can shoot (2h)
 * (x) Enemies can die   (0.5h)
