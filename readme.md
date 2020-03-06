@@ -15,7 +15,7 @@
 * (x) Enemies can leave after a certain time (1h)
 **Game states**
 * (x) Switching in Main menu, game and editor (1h)
-   ** game editor done
+  * game editor done
 * () Game stops if the marked last enemy is killed (1h)
 * () Game stops if player has no life (0.5h)
 * (x) Game stops if player request to leave (0.1h)
@@ -30,7 +30,7 @@
 * enemy wave
 * idle
 * last enemy mark(boss mark)
-**  Game stops if the marked last enemy is killed
+  * Game stops if the marked last enemy is killed
 
 # Rendering Order
 
