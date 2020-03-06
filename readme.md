@@ -6,23 +6,23 @@
 ## Wk5 Gameplay lvl.1
 **Entites**
 * (x) Player can move and swap to slow mode
-* (x) Player can shoot and use bomb
+* (x) Player can shoot
 * () Player can die
 * () Player can respawn
 * (x) Enemies can spawn
 * (x) Enemies can shoot
-* () Enemies can die
-* () Enemies can leave after a certain time
+* (x) Enemies can die
+* (x) Enemies can leave after a certain time
 
 **Game states**
-* () Switching in Main menu, game and editor
+* (x) Switching in Main menu, game and editor
    ** game editor done
 * () Game stops if the marked last enemy is killed
 * () Game stops if player has no life
 * () Game stops if player request to leave
 
 **Tech**
-* () Draw an static image as the background
+* (x) Draw an static image as the background
 * () Basic sfx
 
 # Rendering Order
