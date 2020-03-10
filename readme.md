@@ -27,17 +27,18 @@
 ## Wk7-8 Map and Boss
 **Map**
 * () (tech base)add a callback event with args to countdown class
-* enemy wave (count down)
-* idle
-* last enemy mark(boss mark)
-  * Game stops if the marked last enemy is killed
-* test 3 waves of enemy
+* () enemy wave (count down)
+* () idle
+* () last enemy mark(boss mark)
+  * () Game stops if the marked last enemy is killed
+* () test 3 waves of enemy
+
 **Spell Card**
-* implement bullet spawn bullet
- * add multiple spawn based on angle step
- * change the start position and rotation based on spawner
- * velocity match to rotation
-* implement a spell card (pattern)
+* () implement bullet spawn bullet
+ * () add multiple spawn based on angle step
+ * () change the start position and rotation based on spawner
+ * () velocity match to rotation
+* () implement a spell card (pattern)
 
 
 # Rendering Order
