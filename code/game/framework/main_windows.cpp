@@ -6,6 +6,7 @@
 #include "glare/render/shader.h"
 #include "glare/dev/dev_ui.h"
 #include "glare/core/rng.h"
+#include "glare/core/clock.h"
 #include "framework/app.h"
 #include "imgui/imgui.h"
 using namespace glare;
@@ -52,12 +53,17 @@ int WINAPI WinMain(_In_ HINSTANCE application_instance, _In_opt_ HINSTANCE prev_
 	DEFAULT_WINDOW_EVENT_PROC = game_windows_message_handling_procedure;
 	// Start up
 	// #Todo: Load game config XML
+	g_master_clock = new clock(nullptr);
+	g_master_clock->set_fps(60);
 	the_app = new app();
 	the_app->start();
 	while (the_app->m_run)
 	{
+		const double last_frame_time = get_current_time_seconds();
 		the_app->run_frame();
-		Sleep(8);
+		const double current_time = get_current_time_seconds();
+		const double dt = current_time - last_frame_time;
+		g_master_clock->step(dt);
 	}
 	the_app->stop();
 	delete the_app;

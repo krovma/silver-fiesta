@@ -26,14 +26,14 @@ public:
 	virtual ~editor_frame() = default;
 	virtual void create(const xml::node& node, void* object)
 	{
-		m_xml_node = node;
+		m_editor_xml_node = node;
 		m_object = object;
 	}
 	virtual void update() = 0;
 	virtual void destroy() = 0;
 	virtual void update_xml_node() = 0;
 public:
-	xml::node	m_xml_node;
+	xml::node	m_editor_xml_node;
 	void*		m_object=nullptr;
 	bool		m_active = true;
 };
@@ -62,7 +62,7 @@ public:
 	char	m_rename_buf[GAME_MAX_ID_LENGTH] {""};
 	bool	m_rename_popup;
 
-	bullet_proto::custom* m_custom = nullptr;
+	movement::stage* m_proto_stage = nullptr;
 };
 
 class bullet_proto_end_frame : public editor_frame
@@ -96,7 +96,7 @@ public:
 
 	xml::node	m_custom_frame_node;
 	//xml::node   m_proto_root;
-	std::vector<bullet_proto_custom_frame*>	m_custom_frames;
+	std::vector<bullet_proto_custom_frame*>	m_custom_editor_frames;
 	string	m_xml_path;
 	bullet_proto	m_tmp_proto;
 };

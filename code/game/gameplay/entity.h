@@ -53,29 +53,29 @@ public:
 
 struct health
 {
-	health(int hp = 1, int max_hp = 1)
+	health(int32 hp = 1, int32 max_hp = 1)
 		: m_hp(hp), m_max_hp(max_hp)
 	{}
-	int m_hp;
-	int m_max_hp;
+	int32 m_hp;
+	int32 m_max_hp;
 
 	NODISCARD bool is_dead() const { return m_hp <= 0; }
-	void damage(int amount)
+	void damage(int32 amount)
 	{
 		m_hp -= amount;
 		m_hp = clamp(m_hp, 0, m_max_hp);
 	}
-	void heal(int amount)
+	void heal(int32 amount)
 	{
 		m_hp += amount;
 		m_hp = clamp(m_hp, 0, m_max_hp);
 	}
-	void reset_max_hp(int new_max_hp)
+	void reset_max_hp(int32 new_max_hp)
 	{
 		m_max_hp = new_max_hp;
 		m_hp = clamp(m_hp, 0, m_max_hp);
 	}
-	void set_hp(int hp)
+	void set_hp(int32 hp)
 	{
 		m_hp = hp;
 	}

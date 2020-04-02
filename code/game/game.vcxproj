@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="editor\bullet_proto_editor.cpp" />
+    <ClCompile Include="enemy_proto.cpp" />
     <ClCompile Include="framework\app.cpp" />
     <ClCompile Include="framework\main_windows.cpp" />
     <ClCompile Include="gameplay\bullet.cpp" />
@@ -200,6 +201,8 @@
     <ClCompile Include="gameplay\game.cpp" />
     <ClCompile Include="gameplay\game_editor.cpp" />
     <ClCompile Include="gameplay\game_play.cpp" />
+    <ClCompile Include="gameplay\map.cpp" />
+    <ClCompile Include="gameplay\movement.cpp" />
     <ClCompile Include="gameplay\player.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -216,6 +219,8 @@
     <ClInclude Include="gameplay\game_editor.h" />
     <ClInclude Include="gameplay\game_mode.h" />
     <ClInclude Include="gameplay\game_play.h" />
+    <ClInclude Include="gameplay\map.h" />
+    <ClInclude Include="gameplay\movement.h" />
     <ClInclude Include="gameplay\player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

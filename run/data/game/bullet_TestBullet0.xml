@@ -2,22 +2,26 @@
 <bullet_proto id="enemy-test">
 	<start local_move="false" position="0,0" rotation="0" next="move1" />
 	<custom>
-		<frame id="move1" next="move_2">
+		<stage id="move1" next="move_2">
 			<movements>
-				<move_forward speed="250" time="2" />
+				<move_forward speed="300" time="1" />
 			</movements>
-		</frame>
-		<frame id="move_2" next="move_3">
+		</stage>
+		<stage id="move_2" next="move_3">
 			<movements>
-				<move_tospawner speed="250" time="0.5" />
+				<move_toplayer speed="300" time="0.100000001" />
 			</movements>
-		</frame>
-		<frame id="move_3" next="end">
+		</stage>
+		<stage id="move_3" next="move_4">
 			<movements>
-				<move_forward speed="100" time="5" />
-				<move_tospawner speed="300" time="-1" />
+				<move_forward speed="0" time="0.5" />
 			</movements>
-		</frame>
+		</stage>
+		<stage id="move_4" next="end">
+			<movements>
+				<move_toplayer speed="300" time="2.5" />
+			</movements>
+		</stage>
 	</custom>
 	<end effect="false" />
 </bullet_proto>

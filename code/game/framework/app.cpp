@@ -7,6 +7,7 @@
 #include "glare/dev/dev_ui.h"
 #include "glare/data/xml_utils.h"
 #include "glare/render/sprite.h"
+#include "glare/core/clock.h"
 
 renderer* g_renderer = nullptr;
 
@@ -35,8 +36,11 @@ void app::run_frame()
 	m_renderer->clear_render_target(color::BLACK);
 	m_game->begin_frame();
 	dev_ui::begin_frame();
-	m_game->update(0.016f);
-	dev_ui::update(0.016f);
+
+	const float32 dt = g_master_clock->get_frame_time();
+	
+	m_game->update(dt);
+	dev_ui::update(dt);
 	m_game->render();
 	dev_ui::render();
 	m_game->end_frame();

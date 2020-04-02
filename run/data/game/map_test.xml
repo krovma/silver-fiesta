@@ -1,0 +1,54 @@
+<map>
+    <delay time="1"/> <!--Always start with a delay step-->
+
+    <!--spawn id="elf0-l" position="-300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-l" position="-300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-l" position="-300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-l" position="-300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-l" position="-300, -300" />
+    <delay time="0.5" />
+    
+    
+    <event event="map-clear-bullet" effect="true"/>
+    <delay time = "3" />
+    <spawn id="elf0-r" position="300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, -300" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, -300" />
+
+    <delay time="3" />
+
+    <spawn id="elf0-r" position="300, 0" />
+    <delay time="0.05" />
+    <spawn id="elf0-l" position="-300,0" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, 0" />
+    <delay time="0.05" />
+    <spawn id="elf0-l" position="-300,0" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, 0" />
+    <delay time="0.05" />
+    <spawn id="elf0-l" position="-300,0" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, 0" />
+    <delay time="0.05" />
+    <spawn id="elf0-l" position="-300,0" />
+    <delay time="0.5" />
+    <spawn id="elf0-r" position="300, 0" />
+    <delay time="0.05" />
+    <spawn id="elf0-l" position="-300,0" />
+    <delay time="0.5" />
+
+    <delay time="3" /-->
+    <spawn id="elf-boss" position="0,0" last="true" />
+    <wait event="last-killed" />
+</map>

@@ -1,0 +1,39 @@
+<enemy first-stage="move1">
+    <shape w="50" h="60" r="27" />
+    <anim static="true" id="marisa" />
+    <custom>
+        <stage id="move1" next="move2">
+            <movements>
+                <moveby dir="0,0" time="2.5"/>
+            </movements>
+        </stage>
+        <stage id="move2" next="move3">
+            <movements>
+                <moveby dir="0,-20" time="1" />
+                <shoot id="sc-test" offset="0,-20" rotation="0" />
+            </movements>
+        </stage>
+        <stage id="move3" next="move4">
+            <movements>
+                <moveby dir="0,0" time="5" />
+                <!--shoot id="enemy-test" offset="0,-20" rotation="0" /-->
+            </movements>
+        </stage>
+
+
+        <stage id="move4" next="move6">
+            <movements>
+                <shoot id="sc-test" offset="0,-20" rotation="0" />
+            </movements>
+        </stage>
+        <stage id="move6" next="end">
+            <movements>
+                <moveby dir="0,0" time="100" />
+                <!--shoot id="enemy-test" offset="0,-20" rotation="0" /-->
+            </movements>
+        </stage>
+
+
+
+    </custom>
+</enemy>

@@ -14,7 +14,7 @@ public:
 		delete m_anim;
 		delete m_collider;
 	}
-	bullet(const entity* spawner, const bullet_proto& proto);
+	bullet(entity* spawner, const bullet_proto& proto);
 
 	void start() override ;
 	void begin_frame() override;
@@ -29,8 +29,9 @@ public:
 public:
 	bool m_finish[NUM_BULLET_MOVEMENT] {false};
 	const bullet_proto*	m_proto = nullptr;
-	const bullet_proto::custom*	m_current_custom_stage = nullptr;
+	const movement::stage*	m_current_custom_movement_stage = nullptr;
 	const entity*	m_spawner = nullptr;
 	float32 m_current_stage_time = 0.f;
+	vec2 m_last_goto_player_velocity {10000000.f, 10000000.f};
 	collider* m_collider = nullptr;
 };

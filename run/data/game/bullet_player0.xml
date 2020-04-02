@@ -2,11 +2,11 @@
 <bullet_proto id="player0">
 	<start local_move="false" position="0,0" rotation="180" next="move1" />
 	<custom>
-		<frame id="move1" next="move_2">
+		<stage id="move1" next="move_2">
 			<movements>
 				<move_forward speed="5000" time="999" />
 			</movements>
-        </frame>
+        </stage>
 	</custom>
 	<end effect="false" />
 </bullet_proto>

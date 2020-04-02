@@ -50,36 +50,36 @@ void bullet_proto_start_frame::destroy()
 
 void bullet_proto_start_frame::update_xml_node()
 {
-	m_xml_node.attribute("next").set_value(m_proto->m_start_next_stage);
-	m_xml_node.attribute("position").set_value(m_proto->m_start_position.repr().c_str());
-	m_xml_node.attribute("rotation").set_value(m_proto->m_start_rotation);
-	m_xml_node.attribute("local").set_value(m_proto->m_start_local_move);
+	m_editor_xml_node.attribute("next").set_value(m_proto->m_start_next_stage);
+	m_editor_xml_node.attribute("position").set_value(m_proto->m_start_position.repr().c_str());
+	m_editor_xml_node.attribute("rotation").set_value(m_proto->m_start_rotation);
+	m_editor_xml_node.attribute("local").set_value(m_proto->m_start_local_move);
 }
 
 void bullet_proto_custom_frame::create(const xml::node& node, void* proto)
 {
-	m_custom = reinterpret_cast<bullet_proto::custom*>(proto);
-	strcpy_s(m_custom->m_custom_id, xml::get_attr(node, "id", "NONE").c_str());
-	strcpy_s(m_custom->m_next_stage, xml::get_attr(node, "next", "NONE").c_str());
+	m_proto_stage = reinterpret_cast<movement::stage*>(proto);
+	strcpy_s(m_proto_stage->m_movement_stage_id, xml::get_attr(node, "id", "NONE").c_str());
+	strcpy_s(m_proto_stage->m_next_movement_stage, xml::get_attr(node, "next", "NONE").c_str());
 	auto moves = node.child("movements");
 	auto blmv_forward = moves.child("move_forward");
 	if (!blmv_forward.empty()) {
-		m_custom->m_use[BLMV_FORWARD] = true;
-		m_custom->m_blmv_forward_speed = xml::get_attr(blmv_forward, "speed", 1.0f);
-		m_custom->m_blmv_forward_time = xml::get_attr(blmv_forward, "time", 1.0f);
+		m_proto_stage->m_use[MV_FORWARD] = true;
+		m_proto_stage->m_blmv_forward_speed = xml::get_attr(blmv_forward, "speed", 1.0f);
+		m_proto_stage->m_blmv_forward_time = xml::get_attr(blmv_forward, "time", 1.0f);
 	}
 	auto blmv_toplayer = moves.child("move_toplayer");
 	if (!blmv_toplayer.empty()) {
-		m_custom->m_use[BLMV_TO_PLAYER] = true;
-		m_custom->m_blmv_to_player_speed = xml::get_attr(blmv_toplayer, "speed", 1.0f);
-		m_custom->m_blmv_to_player_time = xml::get_attr(blmv_toplayer, "time", 1.0f);
+		m_proto_stage->m_use[MV_TO_PLAYER] = true;
+		m_proto_stage->m_blmv_to_player_speed = xml::get_attr(blmv_toplayer, "speed", 1.0f);
+		m_proto_stage->m_blmv_to_player_time = xml::get_attr(blmv_toplayer, "time", 1.0f);
 	
 	}
 	auto blmv_tospawner = moves.child("move_tospawner");
 	if (!blmv_tospawner.empty()) {
-		m_custom->m_use[BLMV_TO_SPAWNER] = true;
-		m_custom->m_blmv_to_spawner_speed = xml::get_attr(blmv_tospawner, "speed", 1.0f);
-		m_custom->m_blmv_to_spawner_time = xml::get_attr(blmv_tospawner, "time", 1.0f);
+		m_proto_stage->m_use[MV_TO_SPAWNER] = true;
+		m_proto_stage->m_blmv_to_spawner_speed = xml::get_attr(blmv_tospawner, "speed", 1.0f);
+		m_proto_stage->m_blmv_to_spawner_time = xml::get_attr(blmv_tospawner, "time", 1.0f);
 	
 	}
 	editor_frame::create(node, proto);
@@ -87,7 +87,7 @@ void bullet_proto_custom_frame::create(const xml::node& node, void* proto)
 
 void bullet_proto_custom_frame::update()
 {
-	if (ImGui::TreeNode(m_custom->m_custom_id)) {
+	if (ImGui::TreeNode(m_proto_stage->m_movement_stage_id)) {
 		//ImGui::Text("%s", m_stage_id);
 		//ImGui::SameLine();
 		if (ImGui::Button("Stage ID")) {
@@ -96,7 +96,7 @@ void bullet_proto_custom_frame::update()
 		if (ImGui::BeginPopup("EditCustomStageID")) {
 			ImGui::InputText("New ID", m_rename_buf, GAME_MAX_ID_LENGTH);
 			if (ImGui::Button("Confirm")) {
-				strcpy_s(m_custom->m_custom_id, m_rename_buf);
+				strcpy_s(m_proto_stage->m_movement_stage_id, m_rename_buf);
 				ImGui::CloseCurrentPopup();
 			}
 			if (ImGui::Button("Discard")) {
@@ -105,23 +105,23 @@ void bullet_proto_custom_frame::update()
 			ImGui::EndPopup();
 		}
 		//ImGui::NewLine();
-		ImGui::Checkbox("1.Forward Move", &m_custom->m_use[BLMV_FORWARD]);
-		if (m_custom->m_use[BLMV_FORWARD]) {
-			ImGui::InputFloat("Speed##BLMVFW", &m_custom->m_blmv_forward_speed);
-			ImGui::InputFloat("Time##BLMVFW", &m_custom->m_blmv_forward_time);
+		ImGui::Checkbox("1.Forward Move", &m_proto_stage->m_use[MV_FORWARD]);
+		if (m_proto_stage->m_use[MV_FORWARD]) {
+			ImGui::InputFloat("Speed##BLMVFW", &m_proto_stage->m_blmv_forward_speed);
+			ImGui::InputFloat("Time##BLMVFW", &m_proto_stage->m_blmv_forward_time);
 		}
-		ImGui::Checkbox("2. To Player", &m_custom->m_use[BLMV_TO_PLAYER]);
-		if (m_custom->m_use[BLMV_TO_PLAYER]) {
-			ImGui::InputFloat("Speed##BLMVTP", &m_custom->m_blmv_to_player_speed);
-			ImGui::InputFloat("Time##BLMVTP", &m_custom->m_blmv_to_player_time);
+		ImGui::Checkbox("2. To Player", &m_proto_stage->m_use[MV_TO_PLAYER]);
+		if (m_proto_stage->m_use[MV_TO_PLAYER]) {
+			ImGui::InputFloat("Speed##BLMVTP", &m_proto_stage->m_blmv_to_player_speed);
+			ImGui::InputFloat("Time##BLMVTP", &m_proto_stage->m_blmv_to_player_time);
 		}
-		ImGui::Checkbox("3. To Spawner", &m_custom->m_use[BLMV_TO_SPAWNER]);
-		if (m_custom->m_use[BLMV_TO_SPAWNER]) {
-			ImGui::InputFloat("Speed##BLMVTS", &m_custom->m_blmv_to_spawner_speed);
-			ImGui::InputFloat("Time##BLMVTS", &m_custom->m_blmv_to_spawner_time);
+		ImGui::Checkbox("3. To Spawner", &m_proto_stage->m_use[MV_TO_SPAWNER]);
+		if (m_proto_stage->m_use[MV_TO_SPAWNER]) {
+			ImGui::InputFloat("Speed##BLMVTS", &m_proto_stage->m_blmv_to_spawner_speed);
+			ImGui::InputFloat("Time##BLMVTS", &m_proto_stage->m_blmv_to_spawner_time);
 		}
 		//... More Comes here
-		ImGui::InputText("Next Stage", m_custom->m_next_stage, GAME_MAX_ID_LENGTH);
+		ImGui::InputText("Next Stage", m_proto_stage->m_next_movement_stage, GAME_MAX_ID_LENGTH);
 
 		ImGui::TreePop();
 	}
@@ -133,24 +133,24 @@ void bullet_proto_custom_frame::destroy()
 
 void bullet_proto_custom_frame::update_xml_node()
 {
-	m_xml_node.attribute("id").set_value(m_custom->m_custom_id);
-	m_xml_node.attribute("next").set_value(m_custom->m_next_stage);
-	m_xml_node.remove_child("movements");
-	auto move = m_xml_node.append_child("movements");
-	if (m_custom->m_use[BLMV_FORWARD]) {
+	m_editor_xml_node.attribute("id").set_value(m_proto_stage->m_movement_stage_id);
+	m_editor_xml_node.attribute("next").set_value(m_proto_stage->m_next_movement_stage);
+	m_editor_xml_node.remove_child("movements");
+	auto move = m_editor_xml_node.append_child("movements");
+	if (m_proto_stage->m_use[MV_FORWARD]) {
 		auto cur = move.append_child("move_forward");
-		cur.append_attribute("speed").set_value(m_custom->m_blmv_forward_speed);
-		cur.append_attribute("time").set_value(m_custom->m_blmv_forward_time);
+		cur.append_attribute("speed").set_value(m_proto_stage->m_blmv_forward_speed);
+		cur.append_attribute("time").set_value(m_proto_stage->m_blmv_forward_time);
 	}
-	if (m_custom->m_use[BLMV_TO_PLAYER]) {
+	if (m_proto_stage->m_use[MV_TO_PLAYER]) {
 		auto cur = move.append_child("move_toplayer");
-		cur.append_attribute("speed").set_value(m_custom->m_blmv_to_player_speed);
-		cur.append_attribute("time").set_value(m_custom->m_blmv_to_player_time);
+		cur.append_attribute("speed").set_value(m_proto_stage->m_blmv_to_player_speed);
+		cur.append_attribute("time").set_value(m_proto_stage->m_blmv_to_player_time);
 	}
-		if (m_custom->m_use[BLMV_TO_SPAWNER]) {
+	if (m_proto_stage->m_use[MV_TO_SPAWNER]) {
 		auto cur = move.append_child("move_tospawner");
-		cur.append_attribute("speed").set_value(m_custom->m_blmv_to_spawner_speed);
-		cur.append_attribute("time").set_value(m_custom->m_blmv_to_spawner_time);
+		cur.append_attribute("speed").set_value(m_proto_stage->m_blmv_to_spawner_speed);
+		cur.append_attribute("time").set_value(m_proto_stage->m_blmv_to_spawner_time);
 	}
 }
 
@@ -175,7 +175,7 @@ void bullet_proto_end_frame::destroy()
 
 void bullet_proto_end_frame::update_xml_node()
 {
-	m_xml_node.attribute("effetc").set_value(m_proto->m_end_effect);
+	m_editor_xml_node.attribute("effetc").set_value(m_proto->m_end_effect);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +190,7 @@ bullet_proto_editor::~bullet_proto_editor()
 {
 	delete m_start_frame;
 	delete m_end_frame;
-	for(auto& each : m_custom_frames) {
+	for(auto& each : m_custom_editor_frames) {
 		delete each;
 	};
 }
@@ -237,12 +237,12 @@ void bullet_proto_editor::start(const char* xml_path)
 		m_end_frame->create(root.child("end"), &m_tmp_proto);
 	}
 	m_custom_frame_node = root.child("custom");
-	auto customs = m_custom_frame_node.children("frame");
+	auto customs = m_custom_frame_node.children("stage");
 	for (auto& each_frame : customs) {
-		auto& custom = m_tmp_proto.m_custom_stages.emplace_back(bullet_proto::custom());
+		auto& custom = m_tmp_proto.m_custom_movement.m_stages.emplace_back();
 		bullet_proto_custom_frame* created = new bullet_proto_custom_frame();
 		created->create(each_frame, &custom);
-		m_custom_frames.emplace_back(created);
+		m_custom_editor_frames.emplace_back(created);
 	}
 }
 
@@ -267,7 +267,7 @@ void bullet_proto_editor::update()
 	ImGui::BeginChild("Stages",ImVec2(0,0), true);
 	{
 		m_start_frame->update();
-		for (auto& each_frame : m_custom_frames) {
+		for (auto& each_frame : m_custom_editor_frames) {
 			each_frame->update();
 		}
 		if(ImGui::Button("+")) {
@@ -289,7 +289,7 @@ void bullet_proto_editor::end()
 void bullet_proto_editor::add_new_stage()
 {
 	auto created = new bullet_proto_custom_frame();
-	xml::node new_node = m_custom_frame_node.append_child("frame");
+	xml::node new_node = m_custom_frame_node.append_child("stage");
 	new_node.append_attribute("id").set_value(format("stage-%i", g_rng.rand()).c_str());
 	new_node.append_attribute("next").set_value("NONE");
 	auto move = new_node.append_child("movements");
@@ -299,9 +299,9 @@ void bullet_proto_editor::add_new_stage()
 	move.append_child("move_sinusoidal");
 	move.append_child("move_circle");
 	move.append_child("move_random");
-	auto& new_custom = m_tmp_proto.m_custom_stages.emplace_back(bullet_proto::custom());
+	auto& new_custom = m_tmp_proto.m_custom_movement.m_stages.emplace_back();
 	created->create(new_node, &new_custom);
-	m_custom_frames.emplace_back(created);
+	m_custom_editor_frames.emplace_back(created);
 }
 
 bool bullet_proto_editor::save_xml()
@@ -310,7 +310,7 @@ bool bullet_proto_editor::save_xml()
 		m_tmp_proto.m_proto_id
 	);
 	m_start_frame->update_xml_node();
-	for(auto& each: m_custom_frames) {
+	for(auto& each: m_custom_editor_frames) {
 		each->update_xml_node();
 	}
 	m_end_frame->update_xml_node();

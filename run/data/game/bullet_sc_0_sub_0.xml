@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<bullet_proto id="sc-test-sub0">
+	<start local_move="false" position="0,0" rotation="0" next="move_1" />
+	<custom>
+		<stage id="move_1" next="move_2">
+			<movements>
+				<move_forward speed="200" time="0.5" />
+			</movements>
+		</stage>
+		<stage id="move_2" next="end">
+			<movements>
+				<shoot id="enemy-test" offset="0,0" rotation="0.0" />
+			</movements>
+		</stage>
+    </custom>
+	<end effect="false" />
+</bullet_proto>

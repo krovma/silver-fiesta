@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<bullet_proto id="sc-test">
+	<start local_move="false" position="0,0" rotation="0" next="move_1" />
+	<custom>
+		<stage id="move_1" next="move_2">
+			<movements>
+				<move_forward speed="30" time="3" />
+			</movements>
+		</stage>
+		<stage id="move_2" next="move_3">
+			<movements>
+				<shoot id="sc-test-sub0" offset="-5,0" rotation="-45.0" />
+			</movements>
+		</stage>
+		<stage id="move_3" next="move_4">
+			<movements>
+				<shoot id="sc-test-sub0" offset="0, 0" rotation="0.0" />
+			</movements>
+		</stage>
+		<stage id="move_4" next="end">
+			<movements>
+				<shoot id="sc-test-sub0" offset="5,0" rotation="45.0" />
+			</movements>
+		</stage>
+	</custom>
+	<end effect="false" />
+</bullet_proto>

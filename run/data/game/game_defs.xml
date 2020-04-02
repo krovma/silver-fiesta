@@ -1,0 +1,18 @@
+<defs>
+    <bullets>
+        <load src="data/game/bullet_TestBullet0.xml" />
+        <load src="data/game/bullet_player0.xml" />
+        <load src="data/game/bullet_sc_0.xml" />
+        <load src="data/game/bullet_sc_0_sub_0.xml" />
+
+    </bullets>
+
+    <enemies>
+        <load id="elf0-l"   src="data/game/enemy_elf0-l.xml" />
+        <load id="elf0-r"   src="data/game/enemy_elf0-r.xml" />
+        <load id="elf-boss" src="data/game/enemy_elf_boss.xml" />
+    </enemies>
+
+    <maps>
+    </maps>
+</defs>

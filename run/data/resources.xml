@@ -9,6 +9,7 @@
         <load id="bg_tmp"       src="data/texture/d_stage06h.png" />
         <load id="dxtest"       src="data/texture/d_dxtest.png" />
         <load id="test44"       src="data/texture/d_test4x4.png" />
+        <load id="game_bg"      src="data/texture/d_bg.png" />
     </texture>
 
     <sprite>
@@ -21,6 +22,7 @@
         <load id="marisa" layout="8,3" texture="marisa_tmp"/>
         <load id="sheet_marisa" src="data/texture/sprite_marisa.xml" />
     </sprite>
+
     <anim>
         <load id="marisa_test" src="data/texture/marisa_animation.xml" />
     </anim>

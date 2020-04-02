@@ -51,6 +51,15 @@
     <ClCompile Include="gameplay\collider.cpp">
       <Filter>gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="gameplay\movement.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="gameplay\map.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy_proto.cpp">
+      <Filter>gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework\app.h">
@@ -93,6 +102,12 @@
       <Filter>gameplay</Filter>
     </ClInclude>
     <ClInclude Include="gameplay\collider.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="gameplay\movement.h">
+      <Filter>gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="gameplay\map.h">
       <Filter>gameplay</Filter>
     </ClInclude>
   </ItemGroup>
