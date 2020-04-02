@@ -13,10 +13,9 @@
 * (x) Enemies can shoot (2h)
 * (x) Enemies can die   (0.5h)
 * (x) Enemies can leave after a certain time (1h)
-
 **Game states**
 * (x) Switching in Main menu, game and editor (1h)
-   ** game editor done
+  * game editor done
 * () Game stops if the marked last enemy is killed (1h)
 * () Game stops if player has no life (0.5h)
 * (x) Game stops if player request to leave (0.1h)
@@ -24,6 +23,23 @@
 **Tech**
 * (x) Draw an static image as the background (0.2h)
 * () Basic sfx  (3h)
+
+## Wk7-8 Map and Boss
+**Map**
+* () (tech base)add a callback event with args to countdown class
+* () enemy wave (count down)
+* () idle
+* () last enemy mark(boss mark)
+  * () Game stops if the marked last enemy is killed
+* () test 3 waves of enemy
+
+**Spell Card**
+* () implement bullet spawn bullet
+ * () add multiple spawn based on angle step
+ * () change the start position and rotation based on spawner
+ * () velocity match to rotation
+* () implement a spell card (pattern)
+
 
 # Rendering Order
 
